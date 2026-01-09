@@ -39,4 +39,65 @@ public class ChatService {
     }
 
 
+    public CritiqueFlowResponse answerWithCritique(String userPrompt) {
+        // Draft answer
+        String draft = chatClient.prompt()
+                .system("You are a helpful assistant. Provide a clear, practical answer.")
+                .user(userPrompt)
+                .call()
+                .content();
+
+        // 2) Critique (strict reviewer)
+        String critique = chatClient.prompt()
+                .system("""
+                        You are a strict reviewer.
+                        Find issues in the draft:
+                        - missing steps
+                        - vague claims
+                        - risky assumptions
+                        - better alternatives
+                        Output ONLY bullet points.
+                        """)
+                .user(u -> u.text("""
+                        USER PROMPT:
+                        {prompt}
+
+                        DRAFT ANSWER:
+                        {draft}
+                        """)
+                        .param("prompt", userPrompt)
+                        .param("draft", draft))
+                .call()
+                .content();
+
+        // 3) Improve using critique
+        String improved = chatClient.prompt()
+                .system("""
+                        Rewrite the draft using the critique.
+                        Requirements:
+                        - concise
+                        - actionable
+                        - include steps where needed
+                        - remove fluff
+                        """)
+                .user(u -> u.text("""
+                        USER PROMPT:
+                        {prompt}
+
+                        DRAFT:
+                        {draft}
+
+                        CRITIQUE:
+                        {critique}
+                        """)
+                        .param("prompt", userPrompt)
+                        .param("draft", draft)
+                        .param("critique", critique))
+                .call()
+                .content();
+
+        return new CritiqueFlowResponse(draft, critique, improved);
+    }
+
+    public record CritiqueFlowResponse(String draft, String critique, String finalAnswer) {}
 }
