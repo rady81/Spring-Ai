@@ -15,6 +15,17 @@ This repository demonstrates how to build a **Spring Boot + Spring AI** applicat
 - REST APIs (JSON)
 
 ---
+## Setup
+
+### 1) Create OpenAI API Key
+Create an API key from OpenAI and store it safely.
+
+### 2) Configure Environment Variable (Recommended)
+**Windows PowerShell:**
+```powershell
+setx OPENAI_API_KEY "your_openai_api_key_here" (which we had added in .properties file)
+
+----
 
 ## Features
 ### 1) Chat API (REST)
@@ -30,5 +41,16 @@ Generate text output for a prompt.
 - Response: `{ "result": "..." }`
 
 ---
+run:
+mvn clean spring-boot:run
+http://localhost:8080
+http://localhost:8080/ask-ai?prompt=what is your name
+http://localhost:8080/images/generate?prompt=The Cup of cofee
 
-## Project Structure (Suggested)
+Notes / Best Practices
+--------------
+- Do NOT commit API keys into GitHub.
+- Use environment variables or secrets management.
+- Add .gitignore for .env, application-local.yml, IDE files.
+----
+
