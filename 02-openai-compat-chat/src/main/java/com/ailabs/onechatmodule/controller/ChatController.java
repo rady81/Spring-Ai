@@ -36,6 +36,6 @@ public class ChatController {
         return new Output(response);
 
     }
-    record Input(@NotBlank String prompt){};
-    record Output(String content) {};
+    public record Input(@NotBlank String prompt){};
+    public record Output(String content) {};
 }
