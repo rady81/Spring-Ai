@@ -15,7 +15,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("groq")
+//@ActiveProfiles("groq")
+@ActiveProfiles("openrouter")
 class OpenAICompactChatApplicationTests {
 
     @Autowired
@@ -23,11 +24,11 @@ class OpenAICompactChatApplicationTests {
 
     @Test
     void chat() {
-        MvcTestResult testResult = mockMvcTester.post().uri("/geminiaillm/chat")
+        MvcTestResult testResult = mockMvcTester.post().uri("/aillm/chat")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {
-                            "prompt": "Who is Groq LLM ?"
+                            "prompt": "What use of openrouter?"
                         }
                         """)
                 .exchange();
