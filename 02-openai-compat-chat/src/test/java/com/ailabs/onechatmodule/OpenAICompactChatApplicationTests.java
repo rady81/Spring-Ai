@@ -27,7 +27,7 @@ class OpenAICompactChatApplicationTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {
-                            "prompt": "Gemini LLM best in the LLM's ?"
+                            "prompt": "Who is Groq LLM ?"
                         }
                         """)
                 .exchange();
