@@ -1,0 +1,41 @@
+package com.ailabs.onechatmodule.controller;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/")
+public class ChatController {
+
+    private ChatClient chatClient;
+
+    public ChatController(ChatClient.Builder builder) {
+        this.chatClient = builder
+                //advisor / interceptor mechanism (AOP for AI calls.)
+                .defaultAdvisors(new SimpleLoggerAdvisor())
+                .build();
+    }
+
+    //http://localhost:8080/geminiaillm/chat
+    //in body raw - {
+    //  "prompt": "what is Gemini LLM?"
+    //}
+    @PostMapping("/geminiaillm/chat")
+    Output chat(@RequestBody @Valid Input input) {
+        // these sys to show as preset? true length: xx number (other than 0)
+        String key = System.getenv("GEMINI_API_KEY");
+        System.out.println("GEMINI_API_KEY present? " + (key != null));
+        System.out.println("GEMINI_API_KEY length: " + (key == null ? 0 : key.length()));
+        String response = chatClient.prompt(input.prompt()).call().content();
+        return new Output(response);
+
+    }
+    record Input(@NotBlank String prompt){};
+    record Output(String content) {};
+}
