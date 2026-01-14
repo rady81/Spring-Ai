@@ -30,8 +30,8 @@ public class ChatController {
     Output chat(@RequestBody @Valid Input input) {
         // these sys to show as preset? true length: xx number (other than 0)
         String key = System.getenv("GEMINI_API_KEY");
-        System.out.println("GEMINI_API_KEY present? " + (key != null));
-        System.out.println("GEMINI_API_KEY length: " + (key == null ? 0 : key.length()));
+        System.out.println("API_KEY present? " + (key != null));
+        System.out.println("API_KEY length: " + (key == null ? 0 : key.length()));
         String response = chatClient.prompt(input.prompt()).call().content();
         return new Output(response);
 

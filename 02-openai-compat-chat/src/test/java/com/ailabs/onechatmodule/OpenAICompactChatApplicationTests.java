@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("gemini")
+@ActiveProfiles("groq")
 class OpenAICompactChatApplicationTests {
 
     @Autowired
