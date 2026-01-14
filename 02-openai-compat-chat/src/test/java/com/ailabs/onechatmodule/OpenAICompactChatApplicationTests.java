@@ -15,8 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-//@ActiveProfiles("groq")
-@ActiveProfiles("openrouter")
+@ActiveProfiles("dmr")
 class OpenAICompactChatApplicationTests {
 
     @Autowired
@@ -28,7 +27,7 @@ class OpenAICompactChatApplicationTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {
-                            "prompt": "What use of openrouter?"
+                            "prompt": "What use of Ollama? and how many LLMs it support"
                         }
                         """)
                 .exchange();

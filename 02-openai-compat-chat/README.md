@@ -31,3 +31,8 @@ OpenRouter is a unified API platform that aggregates access to **multiple large 
 
 Docker Model Runner
 Install Docker Desktop and setup Docker Model Runner by following https://docs.docker.com/ai/model-runner/
+1. go to ollama.com
+2. click download top right corner
+3. choose the right OS
+4. download and install locally
+5. 
