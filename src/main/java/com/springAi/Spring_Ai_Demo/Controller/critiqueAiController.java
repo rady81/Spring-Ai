@@ -14,7 +14,7 @@ public class critiqueAiController {
     @Autowired
     public critiqueAiController(ChatService chatService) {}
 
-    @GetMapping("//ask-ai-critique")
+    @GetMapping("/ask-ai-critique")
     public ResponseEntity<?> getResponseOptions(@RequestParam PromptRequest req) {
         return ResponseEntity.ok(chatService.answerWithCritique(req.prompt()));
     }
